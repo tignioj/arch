@@ -84,7 +84,7 @@ fi
 echo "done"
 
 echo "============installing grub=================default for UEFI"
-pacman -S --noconfirm --nedded grub-efi-x86_64 os-prober efibootmgr << EOF2
+pacman -S --noconfirm --needed grub-efi-x86_64 os-prober efibootmgr << EOF2
 
 
 
@@ -116,7 +116,7 @@ else
 fi
 
 echo "Installing xfce4 xorg sddm====================="
-pacman -Sy --noconfirm --nedded xorg xfce4 sddm xf86-video-vesa network-manager-applet  sudo << EOF3
+pacman -Sy --noconfirm --needed xorg xfce4 sddm xf86-video-vesa network-manager-applet  sudo << EOF3
 
 
 
@@ -128,7 +128,7 @@ EOF3
 MY_INSTALL_STATE=$?
 if [ $MY_INSTALL_STATE -eq 1 ]
 then
-pacman -Sy --noconfirm --nedded xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
+pacman -Sy --noconfirm --needed xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
 
 
 
@@ -140,7 +140,7 @@ else
 fi
 if [ $MY_INSTALL_STATE -eq 1 ]
 then
-pacman -Sy --noconfirm --nedded xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
+pacman -Sy --noconfirm --needed xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
 
 
 
@@ -164,7 +164,7 @@ else
 	Server = http://repo.archlinuxcn.org/$arch
 	' >> /etc/pacman.conf
 fi
-pacman -Sy --noconfirm --nedded yaourt fakeroot archlinuxcn-keyring << EOFYAOURT
+pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring << EOFYAOURT
 y
 
 
