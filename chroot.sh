@@ -3,7 +3,7 @@
 echo "chroot setting time----"
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc  --utc
-pacman -S  vim dialog wpa_supplicant ntfs-3g networkmanager << EFOINIT
+pacman -S tmux vim dialog wpa_supplicant ntfs-3g networkmanager git << EFOINIT
 y
 EFOINIT
 echo "done"
@@ -73,6 +73,7 @@ then
 	echo "sudoers is already backup "
 else
 	cp /etc/sudoers /etc/sudoers_bak
+fi
 
 if ( grep 'mike' /etc/sudoers )
 then
@@ -83,8 +84,12 @@ fi
 echo "done"
 
 echo "============installing grub=================default for UEFI"
-pacman -S grub-efi-x86_64 os-prober efibootmgr << EOF2
-y
+pacman -S --noconfirm grub-efi-x86_64 os-prober efibootmgr << EOF2
+
+
+
+
+
 EOF2
 grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
 grub-mkconfig -o /boot/grub/grub.cfg
@@ -111,27 +116,43 @@ else
 fi
 
 echo "Installing xfce4 xorg sddm====================="
-pacman -Sy xorg xfce4 sddm xf86-video-vesa network-manager-applet  sudo << EOF3
-y
+pacman -Sy --noconfirm xorg xfce4 sddm xf86-video-vesa network-manager-applet  sudo << EOF3
+
+
+
+
+
+
+
 EOF3
 MY_INSTALL_STATE=$?
 if [ $MY_INSTALL_STATE -eq 1 ]
 then
-pacman -Sy xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
-y
+pacman -Sy --noconfirm xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
+
+
+
+
+
 EOF3
 else
 	echo "done"
 fi
+while [ $MY_INSTALL_STATE -eq 1 ]
+do
+pacman -Sy --noconfirm xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
 
 
+
+
+
+EOF3
+MY_INSTALL_STATE=$?
+done
 echo "systemctl================================>>"
 systemctl enable sddm
 systemctl disable netctl
 systemctl enable NetworkManager
-pacman -S EOF5
-y
-EOF5
 echo "done"
 
 echo "setting yaourt=============================>>"
@@ -145,8 +166,22 @@ else
 	Server = http://repo.archlinuxcn.org/$arch
 	' >> /etc/pacman.conf
 fi
-pacman -Sy yaourt fakeroot << EOFYAOURT
+pacman -Sy --noconfirm yaourt fakeroot archlinuxcn-keyring << EOFYAOURT
 y
+
+
+
 EOFYAOURT
 
+cd
+mkdir clone
+git clone https://github.com/tignioj/linux.git
+cd linux/config
+su mike 
+./total.sh << EOFCONFIG
+2
+
+
+
+EOFCONFIG
 echo "done"
