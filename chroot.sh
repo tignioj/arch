@@ -144,9 +144,10 @@ else
 	Server = http://repo.archlinuxcn.org/$arch
 	' >> /etc/pacman.conf
 fi
-pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring 
+pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring screenfetch ttf-dejavu ttf-droid wqy-microhei wqy-zenhei
 
 su mike -c 'git clone https://github.com/tignioj/linux.git ~/clone/linux
-~/clone/linux/config/total.sh'
+~/clone/linux/config/total.sh
+screenfetch'
 
 echo "done"
