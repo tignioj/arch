@@ -46,16 +46,23 @@ mkdir -p /mnt /mnt/boot
 mount ${BLOCK}1 /mnt/boot
 lsblk
 echo "change rope================(default:tuna)"
-mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist_bak
-echo "Server = http://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch" >> /etc/pacman.d/mirrorlist
+if test -e /etc/pacman.d/mirrorlist_bak
+then
+	echo 'mirrorlist_bak is exist'
+else
+	cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist_bak
+fi
+echo 'Server = http://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 
 echo "installing base base-devel==============="
 pacstrap /mnt base base-devel
 
 echo "genfstab -L /mnt /mnt/etc/fstab"
-genfstab -L /mnt >> /mnt/etc/fstab
+genfstab -L /mnt > /mnt/etc/fstab
 cat /mnt/etc/fstab
 
-echo "finish,thank you"
-
+echo "Copying chroot.sh to new root=================>>"
+cp /root/chroot.sh /mnt/
+arch-chroot /mnt  /mnt/chroot.sh
+echo "finish,thank you, now you can run the chroot.sh in new root"
 
