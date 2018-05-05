@@ -84,7 +84,7 @@ fi
 echo "done"
 
 echo "============installing grub=================default for UEFI"
-pacman -S --noconfirm grub-efi-x86_64 os-prober efibootmgr << EOF2
+pacman -S --noconfirm --nedded grub-efi-x86_64 os-prober efibootmgr << EOF2
 
 
 
@@ -116,7 +116,7 @@ else
 fi
 
 echo "Installing xfce4 xorg sddm====================="
-pacman -Sy --noconfirm xorg xfce4 sddm xf86-video-vesa network-manager-applet  sudo << EOF3
+pacman -Sy --noconfirm --nedded xorg xfce4 sddm xf86-video-vesa network-manager-applet  sudo << EOF3
 
 
 
@@ -128,7 +128,7 @@ EOF3
 MY_INSTALL_STATE=$?
 if [ $MY_INSTALL_STATE -eq 1 ]
 then
-pacman -Sy --noconfirm xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
+pacman -Sy --noconfirm --nedded xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
 
 
 
@@ -138,17 +138,15 @@ EOF3
 else
 	echo "done"
 fi
-while [ $MY_INSTALL_STATE -eq 1 ]
-do
-pacman -Sy --noconfirm xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
-
+if [ $MY_INSTALL_STATE -eq 1 ]
+then
+pacman -Sy --noconfirm --nedded xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo << EOF3
 
 
 
 
 EOF3
-MY_INSTALL_STATE=$?
-done
+fi
 echo "systemctl================================>>"
 systemctl enable sddm
 systemctl disable netctl
@@ -166,7 +164,7 @@ else
 	Server = http://repo.archlinuxcn.org/$arch
 	' >> /etc/pacman.conf
 fi
-pacman -Sy --noconfirm yaourt fakeroot archlinuxcn-keyring << EOFYAOURT
+pacman -Sy --noconfirm --nedded yaourt fakeroot archlinuxcn-keyring << EOFYAOURT
 y
 
 
