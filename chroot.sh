@@ -47,14 +47,14 @@ MY_INPUT_STATE=$?
 if [ $MY_INPUT_STATE -eq 142 ]
 then
 	passwd << EOF1
-	000000
-	000000
+000000
+000000
 EOF1
 elif [ $MY_INPUT_STATE -eq 0 ]
 then
 	passwd << EOF2
-	$MY_ROOT_PASSWD
-	$MY_ROOT_PASSWD
+$MY_ROOT_PASSWD
+$MY_ROOT_PASSWD
 EOF2
 fi
 
@@ -73,7 +73,7 @@ else
 	cp /etc/sudoers /etc/sudoers_bak
 fi
 
-if ( grep 'mike' /etc/sudoers )
+if ( grep '\<mike\>' /etc/sudoers )
 then
 	echo 'mike is exist'
 else
@@ -81,14 +81,30 @@ else
 fi
 echo "done"
 
+
 echo "============installing grub=================default for UEFI"
-pacman -S --noconfirm --needed grub-efi-x86_64 os-prober efibootmgr 
-grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+
+
+MYTYPE=$1
+MY_BLOCK=$2
+echo "Receive an args from 'beforechroot.sh':$MYTYPE $MY_BLOCK"
+if [[ $MYTYPE -eq 1 ]]
+then
+	echo "Using UEFI==============>>"
+	pacman -S --noconfirm --needed grub-efi-x86_64 os-prober efibootmgr 
+	grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=grub
+elif [[ $MYTYPE -eq 2 ]]
+then
+	echo "Using BIOS=============>>"
+	pacman -S --noconfirm --needed grub
+	grub-install --target=i386-pc  $MY_BLOCK
+fi
+
 grub-mkconfig -o /boot/grub/grub.cfg
 unset MY_INPUT_STATE
 echo "1.nothing"
 echo "2.yes,I want to adjust"
-read -p "anything wrong ?" -t 5 ANY_WRONG
+read -p "anything wrong ?" -t 10 ANY_WRONG
 MY_INPUT_STATE=$?
 if [ $MY_INPUT_STATE -eq 142 ]
 then
