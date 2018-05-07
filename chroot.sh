@@ -160,7 +160,15 @@ else
 	Server = http://repo.archlinuxcn.org/$arch
 	' >> /etc/pacman.conf
 fi
+MY_INDEX=0
+while (( $MY_INDEX <= 4 ))
+do
 pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring screenfetch ttf-dejavu ttf-droid wqy-microhei wqy-zenhei
+if [[ $? -eq 0 ]]
+then
+	break
+fi
+done
 
 su mike -c 'git clone https://github.com/tignioj/linux.git ~/clone/linux
 ~/clone/linux/config/total.sh

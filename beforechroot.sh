@@ -165,5 +165,12 @@ cat /mnt/etc/fstab
 echo "Copying chroot.sh to new root=================>>"
 cp chroot.sh /mnt/
 arch-chroot /mnt  /chroot.sh $MYTYPE $MY_BLOCK
-echo "finish,thank you, now you can run the chroot.sh in new root"
+umount /mnt/boot
+umount /mnt
+reboot
+read -p "Finish,the system will automatically restart after 15 seconds, you can press CTRL + C to cancel" -t 15 IF_CANCELRE
+if [[ $IF_CANCELRE -eq 142 ]]
+then
+	reboot
+fi
 
