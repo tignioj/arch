@@ -16,11 +16,11 @@ a,开启虚拟机后，把脚本放进你的安装系统是个麻烦事，因为
 <br/>
 5,<b>一定要选对你的设备！！！</b>，因为这个脚本将会默认格式化/dev/sda，所以当脚本进行到choose your device的时候，根据脚本输出的内容，看你的设备空间大小来选择，20秒内，你可以输入你的设备，然后回车来改变默认值，
 输入格式：<br/>
-/dev/sda </br>
+  <code>/dev/sda</code>
 或者<br/>
-/dev/sdb<br/>
+  <code>/dev/sdb</code>
 或者<br/>
-/dev/sdc<br/>
+  <code>/dev/sdc</code>
 具体的根据屏幕输出的内容（你设备的容量）选择<br/>
 
 
