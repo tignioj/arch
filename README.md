@@ -42,7 +42,7 @@ a,开启虚拟机后，把脚本放进你的安装系统是个麻烦事，因为
 
 <br/>
 
-三，一些补充
+三，关于脚本
 ====
 <br/>
 1.脚本会检测你是否设置了UEFI启动，如果你是以BIOS方式打开的，你可以关机后在虚拟机里面设置为UEFI启动，当然BIOS安装其实也没什么问题。
@@ -70,3 +70,36 @@ UEFI<br/>
 <br/>
 3.此脚本仅供测试，别把有重要数据的u盘或者硬盘来测试，不然。。。，欢迎加入Arch邪教（滑稽）
 <br/>
+
+四，如何把脚本放进安装系统
+======
+<br/>
+###方法一，ssh<br/>
+1.在另外一台可以的虚拟机下先git clone 下来（以ubuntu为例），记住clone下来之后arch文件夹的位置<br/>
+<code> # git clone https://github.com/tignioj/arch.git </code><br/>
+假设目录为<b> /home/john/clone/arch/ </b><br/>
+<br/>
+
+2.开启ssh服务<br/>
+<code># systemctl start sshd.service</code><br/>
+如果开启失败，请先安装<b>openssh-server</b>,然后再开启sshd.service<br/>
+<code># sudo apt-get install openssh-server</code><br/>
+<br/>
+
+3.记下你这台虚拟机的IP地址<br/>
+<code> # ifconfig </code><br/>
+假设为192.168.11.145,端口22<br/>
+
+<br/>
+4.回到将要安装的系统界面以scp的方式把刚刚git clone下来的两个脚本（包括beforechroot.sh 和 chroot.sh）传输进/root/目录<br/>
+<code># scp -r john@192.168.11.145:/home/john/arch/  /root/</code><br/>
+<code># cd /root/arch/ </code></br>
+<code># ls </code></br>
+<code># ./beforechroot.sh</code><br/>
+<br/>
+5.去泡杯咖啡喝吧
+
+###方法二<br/>
+其他方法就不多介绍了，你可以把它放进你的服务器，然后wget进去,或者使用ftp服务器
+
+###^_^
