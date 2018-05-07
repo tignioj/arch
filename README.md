@@ -25,7 +25,7 @@ a,开启虚拟机后，把脚本放进你的安装系统是个麻烦事，因为
 
 
 
-二，用法（两个脚本必须放在同一个目录下，包括chroot.sh    beforechroot.sh）
+二，用法（两个脚本必须放在同一个目录下，包括chroot.sh    beforechroot.sh）<br/>
 =====
 ./beforechroot.sh
 <br/>
@@ -36,10 +36,12 @@ a,开启虚拟机后，把脚本放进你的安装系统是个麻烦事，因为
 
 <br/>
 三，补充
-=======
+======
 1.脚本会检测你是否设置了UEFI启动，如果你是以BIOS方式打开的，你可以关机后在虚拟机里面设置为UEFI启动，当然BIOS安装其实也没什么问题。
 <br/>
+<br/>
 2.如果仅仅执行./beforechroot.sh，然后不动它了，将会默认配置
+<br/>
 镜像源:tsingshua.edu
 root密码000000,<br/>
 新建用户mike,密码000000<br/>
@@ -56,5 +58,6 @@ UEFI<br/>
 默认应用：vim,zsh,tmux,git,screenfetch,google-chrome,yaourt,fakeroot<br/>
 配置：Vundle，oh-my-zsh,tmux<br/>
 一些字体：powerfont,ttf-dejavu,wqy-microhei,wqy-zenhei<br/>
+<br/>
 <br/>
 3.此脚本仅供测试，别把有重要数据的u盘或者硬盘来测试，不然。。。，欢迎加入Arch邪教（滑稽）
