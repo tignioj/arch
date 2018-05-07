@@ -1,9 +1,10 @@
 #!/bin/bash
 #setting---time=========================================
 
-if [[ ls /sys/firmware/efi/efivars ]]
+if [[ `ls /sys/firmware/efi/efivars` ]]
 then
 	echo "Your device support UEFI"
+	MYTYPE=1
 else
 	echo -e "Your device UEFI is unable to start, If you want to Install Archlinux by UEFI, Please shutdown this Virtual-machine and checkout you Virtual setting,following by these step"
 	echo -e "Vm--->Settings--->Options---->Advanced---->UEFI"
@@ -12,10 +13,10 @@ else
 	read -p "continue by BIOS?(Please choose a number in 5s,default is 1)" -t 5 IF_CONTINUE
 	if [[ $? -eq 142 ]]
 	then
-	MYTYPE=2
+		MYTYPE=2
 	elif [[ $IF_CONTINUE -eq 1 ]]
 	then
-		echo "you choose $IF_CONTINUE"
+			echo "you choose $IF_CONTINUE"
 	elif [[ $IF_CONTINUE -eq 2 ]]
 	then
 		echo "you choose $IF_CONTINUE"
@@ -37,39 +38,36 @@ MY_INPUT_STATE=$?
 if [[ $MY_INPUT_STATE -eq 142 ]]
 then
 	echo "Don't skip"
-#block=======================================no home block=
-echo "step2.==========block-formatting"
-lsblk
-echo -e "choose your block (default is /dev/sda) \n\n NOTICE:This operation will erase all the date in your U disk!!!\n\n"
-read -p "Enter you block(in 15s ):" -t 15 MY_BLOCK
-BLOCK_STATE=$?
-if [[ $BLOCK_STATE -eq 142 ]]
-then
-	MY_BLOCK='/dev/sda'
-fi
-
-echo "your block is $MY_BLOCK"
-
-if [[ $MYTYPE -eq 1 ]]
-then
-	#choose your type==============================
-	echo "your machine support BIOS AND UEFI"
-	echo -e "1.UEFI\n2.BIOS"
-	read -p "Input your number(in 10s)(default is 1):" -t 10 MYTYPE
-	MY_INPUT_STATE=$?
-
-	if [[ $MY_INPUT_STATE -eq 142 ]]
+	#block=======================================no home block=
+	echo "step2.==========block-formatting"
+	lsblk
+	echo -e "choose your block (default is /dev/sda) \n\n NOTICE:This operation will erase all the date in your U disk!!!\n\n"
+	read -p "Enter you block(in 15s ):" -t 15 MY_BLOCK
+	BLOCK_STATE=$?
+	if [[ $BLOCK_STATE -eq 142 ]]
 	then
-		MYTYPE=1
+		MY_BLOCK='/dev/sda'
 	fi
-fi
+	echo "your block is $MY_BLOCK"
+	if [[ $MYTYPE -eq 1 ]]
+	then
+		#choose your type==============================
+		echo "your machine support BIOS AND UEFI"
+		echo -e "1.UEFI\n2.BIOS"
+		read -p "Input your number(in 10s)(default is 1):" -t 10 MYTYPE
+		MY_INPUT_STATE=$?
+		if [[ $MY_INPUT_STATE -eq 142 ]]
+		then
+			MYTYPE=1
+		fi
+	fi
 #=================UEFI============================
-if [[ $MYTYPE -eq 1 ]]
-then
-echo "====gdisk===="
-umount /mnt/boot
-umount /mnt
-sudo gdisk $MY_BLOCK << EOF
+	if [[ $MYTYPE -eq 1 ]]
+	then
+		echo "====gdisk===="
+		umount /mnt/boot
+		umount /mnt
+		sudo gdisk $MY_BLOCK << EOF
 o
 y
 
@@ -88,26 +86,26 @@ y
 
 EOF
 
-echo "mkfs...===================="
-mkfs.vfat -F32 ${MY_BLOCK}1 << EOF
+		echo "mkfs...===================="
+		mkfs.vfat -F32 ${MY_BLOCK}1 << EOF
 y
 EOF
 mkfs.ext4 ${MY_BLOCK}2 << EOF
 y
 EOF
-echo "mkdir--mount==============="
-mount ${MY_BLOCK}2 /mnt
-mkdir -p /mnt /mnt/boot
-mount ${MY_BLOCK}1 /mnt/boot
-fi
+		echo "mkdir--mount==============="
+		mount ${MY_BLOCK}2 /mnt
+		mkdir -p /mnt /mnt/boot
+		mount ${MY_BLOCK}1 /mnt/boot
+	fi
 #=================UEFI-END========================
 
 #================BIOS============================
-if [[ $MYTYPE -eq 2 ]]
-then
-umount /mnt/boot
-umount /mnt
-fdisk $MY_BLOCK << EOFBIOS
+	if [[ $MYTYPE -eq 2 ]]
+	then
+		umount /mnt/boot
+		umount /mnt
+		fdisk $MY_BLOCK << EOFBIOS
 d
 1
 d
@@ -127,16 +125,16 @@ p
 w
 y
 EOFBIOS
-echo "mkfs....."
-mkfs.ext4 ${MY_BLOCK}1 << EOFMKFS
+		echo "mkfs....."
+		mkfs.ext4 ${MY_BLOCK}1 << EOFMKFS
 y
 EOFMKFS
-echo "mountting...."
-mount ${MY_BLOCK}1 /mnt
-echo "done"
-fi
-lsblk
-fdisk -l
+		echo "mountting...."
+		mount ${MY_BLOCK}1 /mnt
+		echo "done"
+	fi
+	lsblk
+	fdisk -l
 fi #//skip(1)-to-here===============
 echo "change rope================(default:tuna)"
 if test -e /etc/pacman.d/mirrorlist_bak
@@ -148,7 +146,17 @@ fi
 echo 'Server = http://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 
 echo "installing base base-devel==============="
-pacstrap /mnt base base-devel
+MY_INDEX=0
+while ((  $MY_INDEX <= 4  )) 
+do
+	pacstrap /mnt base base-devel
+	if [[ $? -eq 0 ]]
+	then
+		break
+	fi
+	let "MY_INDEX+=1"
+	
+done
 
 echo "genfstab -L > /mnt /mnt/etc/fstab"
 genfstab -L /mnt > /mnt/etc/fstab
