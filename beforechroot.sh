@@ -32,7 +32,7 @@ timedatectl set-ntp true
 hwclock --systohc --utc
 
 echo "ready to FORMATTING===========================>>"
-read -p "do you wang to skip(1) this setp(in 5s)?" -t 5 WHETHER_JUMP_FORMAT
+read -p "do you wang to skip(1) this setp(in 5s)?It will skip the step of Format you device" -t 5 WHETHER_JUMP_FORMAT
 #========================skip(1)-TO-row:109=======================
 MY_INPUT_STATE=$?
 if [[ $MY_INPUT_STATE -eq 142 ]]
@@ -42,7 +42,7 @@ then
 	echo "step2.==========block-formatting"
 	lsblk
 	echo -e "choose your block (default is /dev/sda) \n\n NOTICE:This operation will erase all the date in your U disk!!!\n\n"
-	read -p "Enter you block(in 15s ):" -t 15 MY_BLOCK
+	read -p "Enter you block(in 15s ):" -t 20 MY_BLOCK
 	BLOCK_STATE=$?
 	if [[ $BLOCK_STATE -eq 142 ]]
 	then
