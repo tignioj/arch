@@ -3,7 +3,7 @@
 echo "chroot setting time----"
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc  --utc
-pacman -Sy --noconfirm --needed tmux vim dialog wpa_supplicant ntfs-3g networkmanager git 
+pacman -Sy --noconfirm --needed tmux vim dialog wpa_supplicant ntfs-3g networkmanager git zsh
 echo "done"
 
 
