@@ -32,12 +32,6 @@ timedatectl set-ntp true
 hwclock --systohc --utc
 
 echo "ready to FORMATTING===========================>>"
-read -p "do you wang to skip(1) this setp(in 5s)?It will skip the step of Format you device" -t 5 WHETHER_JUMP_FORMAT
-#========================skip(1)-TO-row:109=======================
-MY_INPUT_STATE=$?
-if [[ $MY_INPUT_STATE -eq 142 ]]
-then
-	echo "Don't skip"
 	#block=======================================no home block=
 	echo "step2.==========block-formatting"
 	lsblk
@@ -135,7 +129,6 @@ EOFMKFS
 	fi
 	lsblk
 	fdisk -l
-fi #//skip(1)-to-here===============
 echo "change rope================(default:tuna)"
 if test -e /etc/pacman.d/mirrorlist_bak
 then
