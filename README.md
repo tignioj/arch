@@ -38,7 +38,7 @@
 <br/>
 后面的根据屏幕提示，进行输入（当然你可以什么也不做，这样默认设备就是/dev/sda，但是这一步最好要确认确认一下，以后的步骤提示输入统统都可以放着不管）
 <br/>
-/dev/sd?
+<b>/dev/sd? </b>
 <br/>
 这个？就是你要确定的设备
 <br/>
@@ -94,11 +94,11 @@ UEFI:分区表为GPT<br/>
 
 3.记下你这台虚拟机的IP地址<br/>
 <code> # ifconfig </code><br/>
-假设为192.168.11.145,端口22<br/>
+假设为192.168.11.145<br/>
 
 <br/>
 4.回到将要安装的系统界面以scp的方式把刚刚git clone下来的两个脚本（包括beforechroot.sh 和 chroot.sh）传输进/root/目录<br/>
-<code># scp -r john@192.168.11.145:/home/john/arch/  /root/</code><br/>
+<code># scp -r john@192.168.11.145:/home/john/arch  /root/</code><br/>
 <code># cd /root/arch/ </code></br>
 <code># ls </code></br>
 <code># ./beforechroot.sh</code><br/>
