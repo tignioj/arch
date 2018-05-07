@@ -45,39 +45,9 @@
 
 <br/>
 
-三，关于脚本
-====
-<br/>
-1.脚本会检测你是否设置了UEFI启动，如果你是以BIOS方式打开的，你可以关机后在虚拟机里面设置为UEFI启动，当然BIOS安装其实也没什么问题。
-<br/>
-开启UEFI方法（以vmware为例）
-<b>Vm--->Settings--->Options---->Advanced---->UEFI</b><br/>
-<br/>
 
-2.如果仅仅执行./beforechroot.sh，然后不动它了，将会默认配置
-<br/>
-镜像源:tsingshua.edu
-root密码000000,<br/>
-新建用户mike,密码000000<br/>
-hostname：mikehost<br/>
-图形界面管理器:sddm<br/>
-桌面环境:xfce4<br/>
-引导：grub<br/>
-分区：<br/>
-BIOS:分区表为MBR<br/>
-/mnt        13G<br/>
-UEFI:分区表为GPT<br/>
-/mnt        12G<br/>
-/boot        512M<br/>
-默认应用：vim,zsh,tmux,git,screenfetch,google-chrome,yaourt,fakeroot<br/>
-配置：Vundle，oh-my-zsh,tmux<br/>
-一些字体：powerfont,ttf-dejavu,wqy-microhei,wqy-zenhei<br/>
-<br/>
-<br/>
-3.此脚本仅供测试，别把有重要数据的u盘或者硬盘来测试，不然。。。，欢迎加入Arch邪教（滑稽）
-<br/>
 
-四，如何把脚本放进安装系统
+三，如何把脚本放进安装系统
 ======
 <br/>
 ###方法一，ssh<br/>
@@ -109,3 +79,37 @@ UEFI:分区表为GPT<br/>
 其他方法就不多介绍了，你可以把它放进你的服务器，然后wget进去,或者使用ftp服务器
 
 ###^_^
+
+
+四，关于脚本
+====
+<br/>
+1.脚本会检测你是否设置了UEFI启动，如果你是以BIOS方式打开的，你可以关机后在虚拟机里面设置为UEFI启动，当然BIOS安装其实也没什么问题。
+<br/>
+开启UEFI方法（以vmware为例）
+<b>Vm--->Settings--->Options---->Advanced---->UEFI</b><br/>
+<br/>
+
+2.如果仅仅执行./beforechroot.sh，然后不动它了，将会默认配置
+<br/>
+镜像源:tsingshua.edu
+root密码000000,<br/>
+新建用户mike,密码000000<br/>
+hostname：mikehost<br/>
+图形界面管理器:sddm<br/>
+桌面环境:xfce4<br/>
+引导：grub<br/>
+分区：<br/>
+BIOS:分区表为MBR<br/>
+/mnt        13G<br/>
+UEFI:分区表为GPT<br/>
+/mnt        12G<br/>
+/boot        512M<br/>
+默认应用：vim,zsh,tmux,git,screenfetch,google-chrome,yaourt,fakeroot<br/>
+配置：Vundle，oh-my-zsh,tmux<br/>
+一些字体：powerfont,ttf-dejavu,wqy-microhei,wqy-zenhei<br/>
+<br/>
+<br/>
+3.此脚本仅供测试，别把有重要数据的u盘或者硬盘来测试，不然。。。
+<br/>欢迎加入Arch邪教（滑稽）
+<br/>
