@@ -193,7 +193,7 @@ fi
 MY_INDEX=0
 while (( $MY_INDEX <= 4 ))
 do
-pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring screenfetch ttf-dejavu ttf-droid wqy-microhei wqy-zenhei google-chrome fcitx fcitx-im fcitx-googlepinyin
+pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring screenfetch ttf-dejavu ttf-droid wqy-microhei wqy-zenhei google-chrome fcitx fcitx-im fcitx-libpinyin fcitx-configtool
 if [[ $? -eq 0 ]]
 then
 	break
