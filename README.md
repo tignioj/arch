@@ -1,4 +1,4 @@
-这是一个在Vmware虚拟机（相对）快速安装Archlinux的脚本（暂时只支持AMD处理器）
+这是一个在Vmware虚拟机（相对）快速安装Archlinux的脚本
 ====
 一，在使用这个脚本之前，请先做好以下准备
 ====
@@ -97,6 +97,7 @@ root密码000000,<br/>
 新建用户mike,密码000000<br/>
 hostname：mikehost<br/>
 图形界面管理器:sddm<br/>
+Graphics Drivers: xf86-video-noueau
 桌面环境:xfce4<br/>
 引导：grub<br/>
 分区：<br/>

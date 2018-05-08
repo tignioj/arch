@@ -36,7 +36,7 @@ echo "ready to FORMATTING===========================>>"
 	echo "step2.==========block-formatting"
 	lsblk
 	echo -e "choose your block (default is /dev/sda) \n\n NOTICE:This operation will erase all the date in your U disk!!!\n\n"
-	read -p "Enter you block(in 15s ):" -t 20 MY_BLOCK
+	read -p "Enter you block(in 20s ):" -t 20 MY_BLOCK
 	BLOCK_STATE=$?
 	if [[ $BLOCK_STATE -eq 142 ]]
 	then
@@ -158,11 +158,11 @@ cat /mnt/etc/fstab
 echo "Copying chroot.sh to new root=================>>"
 cp chroot.sh /mnt/
 arch-chroot /mnt  /chroot.sh $MYTYPE $MY_BLOCK
+
 umount /mnt/boot
 umount /mnt
-reboot
-read -p "Finish,the system will automatically restart after 15 seconds, you can press CTRL + C to cancel" -t 15 IF_CANCELRE
-if [[ $IF_CANCELRE -eq 142 ]]
+read -p "Finish,the system will automatically restart after 15 seconds, you can press CTRL + C to cancel" -t 15 IF_CANCEL
+if [[ $IF_CANCEL -eq 142 ]]
 then
 	reboot
 fi

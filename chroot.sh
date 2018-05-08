@@ -1,9 +1,31 @@
 #!/bin/bash
+MYTYPE=$1
+MY_BLOCK=$2
 
+if [[ $MYTYPE && $MY_BLOCK ]]
+then
+	echo "Your device is $MY_BLOCK, type is $MYTYPE"
+else
+	echo -e "\n\nIf you want to run this script, Be sure your system has installed base package\n\n"
+	echo "Usage:\n./chroot.sh [arg1] [arg2]"
+	echo "arg1 : your device name,you can run 'lsblk' to check which is your device"
+	echo "arg2 : you should Input only one number between '1' and '2', 1 is stand for UEFI, 2 is stand for BIOS"
+	echo  -e "e.g:\n\n./chroot.sh /dev/sda 1"
+	exit
+fi
 echo "chroot setting time----"
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc  --utc
-pacman -Sy --noconfirm --needed tmux vim dialog wpa_supplicant ntfs-3g networkmanager git zsh
+
+MY_INDEX=0
+while [[ $MY_INDEX -lt 4 ]]
+do
+pacman -Sy --noconfirm --needed tmux vim dialog wpa_supplicant ntfs-3g networkmanager git zsh 
+if [[ $? -eq 0 ]]
+then
+	break
+fi
+done
 echo "done"
 
 
@@ -82,12 +104,19 @@ fi
 echo "done"
 
 
-echo "============installing grub=================default for UEFI"
+echo -e "\n\n============installing grub=================\n\n"
+
+echo "============Testing CPU====================="
+if  (( `cat /proc/cpuinfo | grep -i amd` ))
+then
+	echo -e "\n\n\nyour CPU is AMD\n\n\n"
+else
+	echo -e "\n\n\nyour CPU is Intel\n\n\nInstalling intel-ucode..."
+	echo 000000 | pacman -S --noconfirm --needed intel-ucode
+fi
 
 
-MYTYPE=$1
-MY_BLOCK=$2
-echo "Receive an args from 'beforechroot.sh':$MYTYPE $MY_BLOCK"
+#=================================UEFI--OR---BIOS===================
 if [[ $MYTYPE -eq 1 ]]
 then
 	echo "Using UEFI==============>>"
@@ -99,6 +128,7 @@ then
 	pacman -S --noconfirm --needed grub
 	grub-install --target=i386-pc  $MY_BLOCK
 fi
+
 
 grub-mkconfig -o /boot/grub/grub.cfg
 unset MY_INPUT_STATE
@@ -163,12 +193,26 @@ fi
 MY_INDEX=0
 while (( $MY_INDEX <= 4 ))
 do
-pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring screenfetch ttf-dejavu ttf-droid wqy-microhei wqy-zenhei google-chrome
+pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring screenfetch ttf-dejavu ttf-droid wqy-microhei wqy-zenhei google-chrome fcitx fcitx-im fcitx-googlepinyin
 if [[ $? -eq 0 ]]
 then
 	break
 fi
 done
+#============for fcitx================
+echo -e "\n\n========fcitx setting==========\n\n"
+if [[ `cat /etc/profile | grep fcitx` ]]
+then
+	echo found fcitx in /etc/porfile
+else
+
+	echo 000000 | sudo -S chmod 777 /etc/profile
+	echo 'export XMODIFIERS="@im=fcitx"
+export GTK_IM_MODULE="fcitx"
+export QT_IM_MODULE="fcitx"' >> /etc/profile
+	echo 000000 | sudo -S chmod 644 /etc/profile
+	echo done
+fi
 
 su mike -c 'git clone https://github.com/tignioj/linux.git ~/clone/linux
 ~/clone/linux/config/total.sh
