@@ -97,7 +97,7 @@ root密码000000,<br/>
 新建用户mike,密码000000<br/>
 hostname：mikehost<br/>
 图形界面管理器:sddm<br/>
-Graphics Drivers: xf86-video-noueau
+Graphics Drivers: xf86-video-noueau<br/>
 桌面环境:xfce4<br/>
 引导：grub<br/>
 分区：<br/>
