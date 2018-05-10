@@ -134,8 +134,10 @@ if test -e /etc/pacman.d/mirrorlist_bak
 then
 	echo 'mirrorlist_bak is exist'
 else
+  cp /etc/pacman.d/mirrorlist /mnt
 	cp /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist_bak
 fi
+
 echo 'Server = http://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' > /etc/pacman.d/mirrorlist
 
 echo "installing base base-devel==============="
@@ -162,7 +164,7 @@ arch-chroot /mnt  /chroot.sh $MYTYPE $MY_BLOCK
 umount /mnt/boot
 umount /mnt
 read -p "Finish,the system will automatically restart after 15 seconds, you can press CTRL + C to cancel" -t 15 IF_CANCEL
-if [[ $IF_CANCEL -eq 142 ]]
+if [[ $? -eq 142 ]]
 then
 	reboot
 fi

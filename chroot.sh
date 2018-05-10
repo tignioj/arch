@@ -185,15 +185,15 @@ then
 	archlinuxcn is exist
 else
 	echo -e '
-	[archlinuxcn]
-	SigLevel=Never
-	Server = http://repo.archlinuxcn.org/$arch
-	' >> /etc/pacman.conf
+[archlinuxcn]
+SigLevel=Never
+Server = http://repo.archlinuxcn.org/$arch
+' >> /etc/pacman.conf
 fi
 MY_INDEX=0
 while (( $MY_INDEX <= 4 ))
 do
-pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring screenfetch ttf-dejavu ttf-droid wqy-microhei wqy-zenhei google-chrome fcitx fcitx-im fcitx-libpinyin fcitx-configtool
+pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring screenfetch ttf-dejavu ttf-droid wqy-microhei wqy-zenhei google-chrome fcitx fcitx-im fcitx-libpinyin fcitx-googlepinyin fcitx-configtool
 if [[ $? -eq 0 ]]
 then
 	break
