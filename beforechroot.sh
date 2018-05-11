@@ -142,7 +142,7 @@ echo 'Server = http://mirrors.tuna.tsinghua.edu.cn/archlinux/$repo/os/$arch' > /
 
 echo "installing base base-devel==============="
 MY_INDEX=0
-while ((  $MY_INDEX <= 4  )) 
+while ((  $MY_INDEX <= 6  )) 
 do
 	pacstrap /mnt base base-devel
 	if [[ $? -eq 0 ]]
