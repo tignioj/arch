@@ -18,7 +18,7 @@ ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc  --utc
 
 MY_INDEX=0
-while [[ $MY_INDEX -lt 4 ]]
+while [[ $MY_INDEX -lt 6 ]]
 do
 pacman -Sy --noconfirm --needed tmux vim dialog wpa_supplicant ntfs-3g networkmanager git zsh 
 if [[ $? -eq 0 ]]
@@ -152,9 +152,11 @@ else
 	echo "unknow the state: $MY_INPUT_STATE "
 fi
 
-echo "Installing xfce4 xorg sddm====================="
-pacman -Sy --noconfirm --needed xorg xfce4 sddm xf86-video-vesa network-manager-applet  sudo << EOF3
-
+echo "Installing xfce4 xorg sddm, drive====================="
+MY_INDEX=0
+while (( $MY_INDEX <= 6 ))
+do
+  pacman -Sy --noconfirm --needed xorg xfce4 sddm xf86-video-vesa network-manager-applet  sudo << EOF3
 
 
 
@@ -162,17 +164,17 @@ pacman -Sy --noconfirm --needed xorg xfce4 sddm xf86-video-vesa network-manager-
 
 
 EOF3
-MY_INSTALL_STATE=$?
-if [ $MY_INSTALL_STATE -eq 1 ]
+if [[ $? -eq 0 ]]
 then
-pacman -Sy --noconfirm --needed xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo 
-else
-	echo "done"
+  break
 fi
-if [ $MY_INSTALL_STATE -eq 1 ]
-then
-pacman -Sy --noconfirm --needed xorg xfce4 sddm xf86-video-nouveau network-manager-applet  sudo
-fi
+
+done
+
+
+
+
+
 echo "systemctl================================>>"
 systemctl enable sddm
 systemctl disable netctl
@@ -191,7 +193,7 @@ Server = http://repo.archlinuxcn.org/$arch
 ' >> /etc/pacman.conf
 fi
 MY_INDEX=0
-while (( $MY_INDEX <= 4 ))
+while (( $MY_INDEX <= 6 ))
 do
 pacman -Sy --noconfirm --needed yaourt fakeroot archlinuxcn-keyring screenfetch ttf-dejavu ttf-droid wqy-microhei wqy-zenhei google-chrome fcitx fcitx-im fcitx-libpinyin fcitx-googlepinyin fcitx-configtool
 if [[ $? -eq 0 ]]
