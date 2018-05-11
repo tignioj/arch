@@ -159,6 +159,8 @@ cat /mnt/etc/fstab
 
 echo "Copying chroot.sh to new root=================>>"
 cp chroot.sh /mnt/
+cp xfce.sh /mnt/
+cp grub.sh /mnt/
 arch-chroot /mnt  /chroot.sh $MYTYPE $MY_BLOCK
 
 umount /mnt/boot
