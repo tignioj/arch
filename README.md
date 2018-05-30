@@ -3,28 +3,28 @@
 一，在使用这个脚本之前，请先做好以下准备
 ====
 
-1.从archlinux 官网下载镜像
+### 1.从archlinux 官网下载镜像
 <br/>
 <br/>
- 2.在vmware创建新的虚拟机，选择iso时，选择你下载的镜像，vmware无法识别你的镜像的发行版，是正常的，因此下一步的version手动选择other Linux 4.x or later kernel 64-bit，后面的硬盘可以选择Create a new virtual disk，大小我一般给20G<br/>
+### 2.在vmware创建新的虚拟机，选择iso时，选择你下载的镜像，vmware无法识别你的镜像的发行版，是正常的，因此下一步的version手动选择other Linux 4.x or later kernel 64-bit，后面的硬盘可以选择Create a new virtual disk，大小我一般给20G<br/>
 <br/>
 
- 3.确保联网，ping 114.114.114.114
+### 3.确保联网，ping 114.114.114.114
 <br/>
 <br/>
- 4.把脚本放进你的虚拟机<br/>
+### 4.把脚本放进你的虚拟机<br/>
   
- 方法一(推荐）：  
+#### 方法一(推荐）：  
   打开安装的系统，执行:
-  ```# wget https://tignioj.github.io/arch-script/beforechroot.sh```  
+ <code> # wget https://tignioj.github.io/arch-script/beforechroot.sh </code>
     
-  ```# wget https://tignioj.github.io/arch-script/before.sh```
- 方法二：
+ <code> # wget https://tignioj.github.io/arch-script/before.sh </code>
+#### 方法二：
   开启虚拟机后，把脚本放进你的安装系统是个麻烦事，我用另一个虚拟机搭了个本地服务器，然后同过scp -r user@ip:<path to your file>的方法放进去，当然，如果你有服务器就更好了，把脚本放进你的服务器去，wget下载这两个脚本，然后chmod +x beforechroot.sh  chmod +x chrmod +x chroot.sh,再<br/>
   <code>#./beforechroot.sh</code><br/>
 <br/>
  
-  <code>
+
 ### 5,<b>一定要选对你的设备！！！</b>，因为这个脚本将会默认格式化/dev/sda，所以当脚本进行到choose your device的时候，根据脚本输出的内容，看你的设备空间大小来选择，20秒内，你可以输入你的设备，然后回车来改变默认值，<br/>
 输入格式：<br/>
   <code>/dev/sda</code><br/>
@@ -58,7 +58,7 @@
 三，如何把脚本放进安装系统
 ======
 <br/>
-###方法一，ssh<br/>
+###方法二，ssh<br/>
 1.在另外一台可以的虚拟机下先git clone 下来（以ubuntu为例），记住clone下来之后arch文件夹的位置<br/>
 <code> # git clone https://github.com/tignioj/arch.git </code><br/>
 假设目录为<b> /home/john/clone/arch/ </b><br/>
