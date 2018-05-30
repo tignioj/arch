@@ -15,7 +15,7 @@
 ### 4.把脚本放进你的虚拟机
 
 #### 方法一(推荐）：  
-  打开安装的系统，执行:<br/>
+  打开你的镜像后，执行:<br/>
  <code> # wget https://tignioj.github.io/arch-script/beforechroot.sh </code>
  <br/>
  <code> # wget https://tignioj.github.io/arch-script/before.sh </code>
