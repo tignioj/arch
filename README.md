@@ -12,8 +12,8 @@
 ### 3.确保联网，ping 114.114.114.114
 <br/>
 <br/>
-### 4.把脚本放进你的虚拟机<br/>
-  
+### 4.把脚本放进你的虚拟机
+  <br/>
 #### 方法一(推荐）：  
   打开安装的系统，执行:
  <code> # wget https://tignioj.github.io/arch-script/beforechroot.sh </code>
