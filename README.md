@@ -13,11 +13,11 @@
 <br/>
 <br/>
 ### 4.把脚本放进你的虚拟机
-  <br/>
+
 #### 方法一(推荐）：  
-  打开安装的系统，执行:
+  打开安装的系统，执行:<br/>
  <code> # wget https://tignioj.github.io/arch-script/beforechroot.sh </code>
-    
+ <br/>
  <code> # wget https://tignioj.github.io/arch-script/before.sh </code>
 #### 方法二：
   开启虚拟机后，把脚本放进你的安装系统是个麻烦事，我用另一个虚拟机搭了个本地服务器，然后同过scp -r user@ip:<path to your file>的方法放进去，当然，如果你有服务器就更好了，把脚本放进你的服务器去，wget下载这两个脚本，然后chmod +x beforechroot.sh  chmod +x chrmod +x chroot.sh,再<br/>
